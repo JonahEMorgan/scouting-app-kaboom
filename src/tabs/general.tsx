@@ -3,6 +3,8 @@ import { Input } from "../components/input.tsx"
 import { Checkbox } from "../components/checkbox.tsx"
 import type { MouseEventHandler } from "preact";
 import type { Store } from "../store.tsx";
+import { useContext } from "preact/hooks";
+import { Theme } from "../app.tsx";
 
 type GeneralOptions = {
   store: {
@@ -15,6 +17,9 @@ type GeneralOptions = {
 }
 
 export function General({store: {store: {general}, set}, theme}: GeneralOptions) {
+  var themeValue = useContext(Theme);
+  console.log("I say", themeValue);
+  var icon = themeValue == "dark" ? "./light.svg" : "./dark.svg";
   var styles = {
     section: {
       fontSize: "1.2em",
@@ -29,6 +34,16 @@ export function General({store: {store: {general}, set}, theme}: GeneralOptions)
       display: "flex",
       alignItems: "center",
       justifyContent: "end"
+    },
+    button: {
+      background: `url(${icon}) center / contain, #233`,
+      border: "none",
+      borderRadius: ".5em",
+      fontSize: "1em",
+      padding: ".5em",
+      width: "4em",
+      height: "4em",
+      margin: ".5em"
     }
   };
   return <>
@@ -49,7 +64,7 @@ export function General({store: {store: {general}, set}, theme}: GeneralOptions)
       </label>
       <label style={styles.label}>
         Replay?
-        <Checkbox />
+        <Checkbox value={general.replay} set={set("general", "replay")} />
       </label>
       <label style={styles.label}>
         Alliance:
@@ -68,7 +83,7 @@ export function General({store: {store: {general}, set}, theme}: GeneralOptions)
         <Input value={general.team} set={set("general", "team")} type="number" />
       </label>
       <img style={styles.icon} src="./dark-logo.svg" />
-      <button onClick={theme}></button>
+      <button onClick={theme} style={styles.button}></button>
     </section>
   </>;
 }

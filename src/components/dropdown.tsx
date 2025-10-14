@@ -2,22 +2,25 @@ import { useState } from "preact/hooks"
 
 type DropdownParameters = {
   options: Array<string | number>
-  value: string | number
+  value: number
   set: Function
+  area?: string
 }
 
-export function Dropdown({ options, value, set }: DropdownParameters) {
+export function Dropdown({ options, value, set, area = "" }: DropdownParameters) {
   var [opened, setOpened] = useState(false);
   var style = {
     button: {
-      background: "#233",
+      background: "url(./arrow.svg) right / contain no-repeat, #233",
       border: "none",
       borderRadius: ".5em",
       fontSize: "1em",
       padding: ".5em",
       margin: ".5em",
       width: "10em",
-      position: "relative"
+      position: "relative",
+      textAlign: "left",
+      gridArea: area
     },
     options: {
       display: "flex",
@@ -42,26 +45,22 @@ export function Dropdown({ options, value, set }: DropdownParameters) {
   function change(option: string | number) {
     return (event: Event) => {
       event.stopPropagation();
-      set(option);
+      set(options.indexOf(option));
       setOpened(false);
     };
   }
-  if(opened) {
-    return <>
-      <button style={style.button} onClick={click}>
-        {value}
-        <div style={style.options}>
+  return <>
+    <button style={style.button} onClick={click}>
+      {options[value]}
+      {
+        opened && <div style={style.options}>
           {options.map(
             option => <button style={style.option} onClick={change(option)}>
               {option}
             </button>
           )}
         </div>
-      </button>
-    </>;
-  } else {
-    return <>
-      <button style={style.button} onClick={click}>{value}</button>
-    </>;
-  }
+      }
+    </button>
+  </>;
 }

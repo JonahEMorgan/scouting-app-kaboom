@@ -1,7 +1,9 @@
-import { useState } from "preact/hooks";
+type CheckboxParameters = {
+  value: boolean
+  set: Function
+}
 
-export function Checkbox() {
-  var [checked, setChecked] = useState(false);
+export function Checkbox({ value, set }: CheckboxParameters) {
   var style = {
     unchecked: {
       appearance: "none",
@@ -24,7 +26,7 @@ export function Checkbox() {
       height: "1.5em"
     }
   };
-  var toggle = () => setChecked(!checked);
-  var getStyle = () => checked ? style.checked : style.unchecked;
-  return <input type="checkbox" checked={checked} onChange={toggle} style={getStyle()} />;
+  var toggle = () => set(!value);
+  var getStyle = () => value ? style.checked : style.unchecked;
+  return <input type="checkbox" checked={value} onChange={toggle} style={getStyle()} />;
 }
