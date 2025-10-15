@@ -20,6 +20,8 @@ export function Textbox({ value, set, area = "" }: TextboxParameters) {
     padding: ".5em",
     height: "100%"
   };
-  var change = (input: TargetedEvent<HTMLTextAreaElement, Event>) => set(input.target!.value);
+  var change = (input: TargetedEvent<HTMLTextAreaElement, Event>) => set(
+    (input.target! as HTMLTextAreaElement).value
+  );
   return <textarea onChange={change} style={style}>{value}</textarea>;
 }

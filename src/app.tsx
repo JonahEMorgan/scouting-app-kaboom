@@ -30,7 +30,7 @@ export function App() {
     teleop:  <Teleop store={store} />,
     end:     <End store={store} />,
     qr:      <QR store={store} />,
-    data:    <Data store={store} />,
+    data:    <Data />,
   };
   var style = {
     nav: {
@@ -62,7 +62,7 @@ export function App() {
         </Tabs.Provider>
       </nav>
       <main style={style.main}>
-        {pages[tab]}
+        {(pages as any)[tab]}
         {import.meta.env.DEV && <DataViewer store={store} />}
         <h1 style={style.team}>{store.store.general.team}</h1>
       </main>

@@ -1,6 +1,7 @@
-import { useState } from "preact/hooks"
+import { useContext, useState } from "preact/hooks"
 import type { Wrapper } from "../store"
 import { highlight, languages } from "prismjs"
+import { Dark } from "../app"
 
 type DataViewerOptions = {
 	store: Wrapper
@@ -8,9 +9,11 @@ type DataViewerOptions = {
 
 export function DataViewer({ store }: DataViewerOptions) {
 	var [opened, setOpened] = useState(false);
+	var dark = useContext(Dark);
 	var style = {
 		button: {
-			background: "url(./debug.svg) center / 2em no-repeat, #233",
+			background: `url(./debug.svg) center / 2em no-repeat, ${dark ? "#233" : "#1458"}`,
+			backdropFilter: "blur(10px)",
 			width: "3em",
 			height: "3em",
 			border: "none",
@@ -25,7 +28,8 @@ export function DataViewer({ store }: DataViewerOptions) {
 			left: "10em",
 			bottom: "5em",
 			right: "10em",
-			background: "#233",
+			background: dark ? "#233" : "#1458",
+			backdropFilter: "blur(10px)",
 			borderRadius: ".5em",
 			padding: "2em",
 			textOverflow: "ellipsis",
@@ -40,6 +44,6 @@ export function DataViewer({ store }: DataViewerOptions) {
 	};
 	return <>
 		<button style={style.button} onClick={toggle}></button>
-		{opened && <modal style={style.modal} dangerouslySetInnerHTML={html}></modal>}
+		{opened && <div style={style.modal} dangerouslySetInnerHTML={html}></div>}
 	</>;
 }

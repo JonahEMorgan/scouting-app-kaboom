@@ -1,13 +1,6 @@
 import encodeQR from "qr";
-import type { Store } from "../store";
 import { useContext } from "preact/hooks";
 import { Dark } from "../app";
-
-type DataOptions = {
-  store: {
-    store: Store
-  },
-}
 
 var password = "67";
 var hints = [
@@ -16,7 +9,7 @@ var hints = [
   "TikTok"
 ];
 
-export function Data({store: {store}}: DataOptions) {
+export function Data() {
   var download = () => {
     var value = Object.values(localStorage).join("\n");
     var link = document.createElement("a");

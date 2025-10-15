@@ -9,9 +9,9 @@ function combine<T>(a: T, b: Subset<T>) {
 	for(var [key, value] of Object.entries(b)) {
 		if(value !== undefined) {
 			if(typeof value == "object") {
-				combine(a[key], value);
+				combine((a as any)[key], value as any);
 			} else {
-				a[key] = value;
+				(a as any)[key] = value;
 			}
 		}
 	}
@@ -26,9 +26,9 @@ export class Wrapper {
 	set = (...keys: string[]) =>
 		(value: any) => this.setStore(draft => {
 			for(var key of keys.slice(0, -1)) {
-				draft = draft[key];
+				draft = (draft as any)[key];
 			}
-			draft[keys.at(-1)] = value;
+			(draft as any)[keys.at(-1) as string] = value;
 		});
 	reset = (keep: Subset<Store>) =>
 		this.setStore(draft => combine(draft, {...new Store(), ...keep}))

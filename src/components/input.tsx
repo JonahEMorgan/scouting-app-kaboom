@@ -20,6 +20,8 @@ export function Input({type = "text", value, set}: InputParameters) {
     margin: ".5em",
     width: "10em"
   };
-  var change = (input: TargetedEvent<HTMLInputElement, Event>) => set(input.target!.value);
+  var change = (input: TargetedEvent<HTMLInputElement, Event>) => set(
+    (input.target! as HTMLInputElement).value
+  );
   return <input type={type} style={style} value={value} onChange={change}/>;
 }
