@@ -18,6 +18,7 @@ export function Toggle({children, value, set, yesColor, noColor, area = ""}: Tog
     fontSize: "1.5em",
     padding: ".5em",
     width: "100%",
+    backdropFilter: "blur(10px)",
     gridArea: area
   };
   var click = () => set(!value);

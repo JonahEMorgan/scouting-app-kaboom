@@ -17,14 +17,13 @@ type TabContext = {
 
 export var Tabs = createContext(null as unknown as TabContext);
 
-export var Theme = createContext("dark");
+export var Dark = createContext(true);
 
 export function App() {
   var [tab, setTab] = useState("general");
-  var [theme, setTheme] = useState("dark");
+  var [dark, setDark] = useState(true);
   var store = new Wrapper();
-  var toggle = () => setTheme(theme == "dark" ? "light" : "dark");
-  console.log("I say", theme);
+  var toggle = () => setDark(!dark);
   var pages = {
     general: <General store={store} theme={toggle} />,
     auto:    <Auto store={store} />,
@@ -39,13 +38,20 @@ export function App() {
       display: "flex"
     },
     main: {
+      background: dark ? "#122" : "url(./sea.svg)",
       padding: "1em",
-      height: "100%"
+      height: "100%",
+      overflow: "scroll"
+    },
+    team: {
+      position: "fixed",
+      bottom: ".5em",
+      left: ".5em"
     }
   };
   return <>
-    <nav style={style.nav}>
-      <Theme.Provider value={theme}>
+    <Dark.Provider value={dark}>
+      <nav style={style.nav}>
         <Tabs.Provider value={{tab, setTab}}>
           <Tab name="general">General</Tab>
           <Tab name="auto">Auto</Tab>
@@ -54,11 +60,12 @@ export function App() {
           <Tab name="qr">QR</Tab>
           <Tab name="data">Data</Tab>
         </Tabs.Provider>
-      </Theme.Provider>
-    </nav>
-    <main style={style.main}>
-      {pages[tab]}
-      {import.meta.env.DEV && <DataViewer store={store} />}
-    </main>
+      </nav>
+      <main style={style.main}>
+        {pages[tab]}
+        {import.meta.env.DEV && <DataViewer store={store} />}
+        <h1 style={style.team}>{store.store.general.team}</h1>
+      </main>
+    </Dark.Provider>
   </>;
 }

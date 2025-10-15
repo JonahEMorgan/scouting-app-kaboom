@@ -4,7 +4,7 @@ import { Checkbox } from "../components/checkbox.tsx"
 import type { MouseEventHandler } from "preact";
 import type { Store } from "../store.tsx";
 import { useContext } from "preact/hooks";
-import { Theme } from "../app.tsx";
+import { Dark } from "../app.tsx";
 
 type GeneralOptions = {
   store: {
@@ -17,9 +17,8 @@ type GeneralOptions = {
 }
 
 export function General({store: {store: {general}, set}, theme}: GeneralOptions) {
-  var themeValue = useContext(Theme);
-  console.log("I say", themeValue);
-  var icon = themeValue == "dark" ? "./light.svg" : "./dark.svg";
+  var dark = useContext(Dark);
+  var icon = dark ? "./light.svg" : "./dark.svg";
   var styles = {
     section: {
       fontSize: "1.2em",
@@ -36,7 +35,8 @@ export function General({store: {store: {general}, set}, theme}: GeneralOptions)
       justifyContent: "end"
     },
     button: {
-      background: `url(${icon}) center / contain, #233`,
+      background: `url(${icon}) center / contain, ${dark ? "#233" : "#1458"}`,
+      backdropFilter: "blur(10px)",
       border: "none",
       borderRadius: ".5em",
       fontSize: "1em",

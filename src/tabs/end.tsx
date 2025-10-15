@@ -1,7 +1,9 @@
+import { useContext } from "preact/hooks";
 import { Dropdown } from "../components/dropdown";
 import { Textbox } from "../components/textbox";
 import { Toggle } from "../components/toggle";
 import type { Store } from "../store";
+import { Dark } from "../app";
 
 type EndOptions = {
   store: {
@@ -13,6 +15,7 @@ type EndOptions = {
 }
 
 export function End({store: {store: {end}, set}}: EndOptions) {
+  var dark = useContext(Dark);
   var style = {
     section: {
       display: "grid",
@@ -58,7 +61,7 @@ export function End({store: {store: {end}, set}}: EndOptions) {
         "None", "Poor", "Passable", "Good", "Excellent"
       ]}/>
     </label>
-    <Toggle area="g" value={end.park} set={set("end", "park")} yesColor="green" noColor="#233">
+    <Toggle area="g" value={end.park} set={set("end", "park")} yesColor="green" noColor={dark ? "#233" : "#1458"}>
       Park
     </Toggle>
     <Toggle area="h" value={end.breakdown} set={set("end", "breakdown")} yesColor="red" noColor="green">

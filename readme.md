@@ -7,5 +7,6 @@ Development instructions:
 ```shell
 git clone https://github.com/jonahemorgan/scouting-app-kaboom
 cd scouting-app-kaboom
+bun install
 bun dev
 ```

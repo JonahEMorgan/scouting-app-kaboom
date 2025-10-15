@@ -1,4 +1,6 @@
 import type { TargetedEvent } from "preact";
+import { useContext } from "preact/hooks";
+import { Dark } from "../app";
 
 type TextboxParameters = {
   value: string | number
@@ -7,9 +9,11 @@ type TextboxParameters = {
 }
 
 export function Textbox({ value, set, area = "" }: TextboxParameters) {
+  var dark = useContext(Dark);
   var style = {
     gridArea: area,
-    background: "#233",
+    background: dark ? "#233" : "#1458",
+    backdropFilter: "blur(10px)",
     border: "none",
     borderRadius: ".5em",
     fontSize: "1em",

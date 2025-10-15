@@ -1,5 +1,7 @@
 import encodeQR from "qr";
 import type { Store } from "../store";
+import { useContext } from "preact/hooks";
+import { Dark } from "../app";
 
 type DataOptions = {
   store: {
@@ -33,9 +35,11 @@ export function Data({store: {store}}: DataOptions) {
       alert(`The password was incorrect. Hint: ${hint}`);
     }
   };
+  var dark = useContext(Dark);
   var style = {
     button: {
-      background: "#233",
+      background: dark ? "#233" : "#1458",
+      backdropFilter: "blur(10px)",
       border: "none",
       borderRadius: ".5em",
       fontSize: "1em",

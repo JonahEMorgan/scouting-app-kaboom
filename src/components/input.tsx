@@ -1,4 +1,6 @@
 import type { TargetedEvent } from "preact";
+import { useContext } from "preact/hooks";
+import { Dark } from "../app";
 
 type InputParameters = {
   type?: string
@@ -7,8 +9,10 @@ type InputParameters = {
 };
 
 export function Input({type = "text", value, set}: InputParameters) {
+  var dark = useContext(Dark);
   var style = {
-    background: "#233",
+    background: dark ? "#233" : "#1458",
+    backdropFilter: "blur(10px)",
     border: "none",
     borderRadius: ".5em",
     fontSize: "1em",

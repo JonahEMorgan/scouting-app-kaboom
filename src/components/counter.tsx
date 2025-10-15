@@ -1,3 +1,6 @@
+import { useContext } from "preact/hooks";
+import { Dark } from "../app";
+
 type CounterParameters = {
   children: string
   value: number
@@ -6,9 +9,11 @@ type CounterParameters = {
 };
 
 export function Counter({children, value, set, area = ""}: CounterParameters) {
+  var dark = useContext(Dark);
   var style = {
     button: {
-      background: "#233",
+      background: dark ? "#233" : "#1458",
+      backdropFilter: "blur(10px)",
       border: "none",
       borderRadius: ".1em",
       fontSize: "5em",

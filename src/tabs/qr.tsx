@@ -1,7 +1,8 @@
-import { useState } from "preact/hooks";
+import { useContext, useState } from "preact/hooks";
 import { Checkbox } from "../components/checkbox";
 import { encodeQR } from "qr";
 import type { Store, Subset } from "../store";
+import { Dark } from "../app";
 
 type QROptions = {
   store: {
@@ -11,9 +12,11 @@ type QROptions = {
 }
 
 export function QR({store: {store, reset}}: QROptions) {
+  var dark = useContext(Dark);
   var style = {
     button: {
-      background: "#233",
+      background: dark ? "#233" : "#1458",
+      backdropFilter: "blur(10px)",
       border: "none",
       borderRadius: ".5em",
       fontSize: "1em",

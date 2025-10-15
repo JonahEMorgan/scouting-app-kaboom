@@ -1,13 +1,18 @@
+import { useContext } from "preact/hooks";
+import { Dark } from "../app";
+
 type CheckboxParameters = {
   value: boolean
   set: Function
 }
 
 export function Checkbox({ value, set }: CheckboxParameters) {
+  var dark = useContext(Dark);
   var style = {
     unchecked: {
       appearance: "none",
-      background: "#233",
+      background: dark ? "#233" : "#1458",
+      backdropFilter: "blur(10px)",
       border: "none",
       borderRadius: ".5em",
       fontSize: "1em",

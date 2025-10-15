@@ -1,4 +1,5 @@
-import { useState } from "preact/hooks"
+import { useContext, useState } from "preact/hooks"
+import { Dark } from "../app"
 
 type DropdownParameters = {
   options: Array<string | number>
@@ -9,9 +10,11 @@ type DropdownParameters = {
 
 export function Dropdown({ options, value, set, area = "" }: DropdownParameters) {
   var [opened, setOpened] = useState(false);
+  var dark = useContext(Dark);
   var style = {
     button: {
-      background: "url(./arrow.svg) right / contain no-repeat, #233",
+      background: `url(./arrow.svg) right / contain no-repeat, ${dark ? "#233" : "#1458"}`,
+      backdropFilter: "blur(10px)",
       border: "none",
       borderRadius: ".5em",
       fontSize: "1em",
